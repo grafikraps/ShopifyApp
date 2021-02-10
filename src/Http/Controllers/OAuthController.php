@@ -4,6 +4,7 @@ namespace Grafikr\ShopifyApp\Http\Controllers;
 
 use Grafikr\ShopifyApp\Http\Requests\OAuthCallbackRequest;
 use Grafikr\ShopifyApp\Models\Shop;
+use Grafikr\ShopifyApp\Events\ShopInstalled;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -44,7 +45,6 @@ class OAuthController extends BaseController
      *
      * @param OAuthCallbackRequest $request
      * @return RedirectResponse
-     * @throws GuzzleException
      */
     public function callback(OAuthCallbackRequest $request): RedirectResponse
     {
@@ -67,12 +67,25 @@ class OAuthController extends BaseController
             ]);
         }
 
-        $shop = Shop::updateOrCreate(
-            ['url' => $request->input('shop')],
-            ['access_token' => Arr::get($response, 'access_token')],
-        );
+        try {
+            /** @var Shop $shop */
+            $shop = Shop::where('url', $request->input('shop'))->firstOrFail();
 
-        // ShopInstalled::dispatch($shop);
+            $shop->fill([
+                'access_token' => Arr::get($response, 'access_token'),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            $shop = new Shop([
+                'url' => $request->input('shop'),
+                'access_token' => Arr::get($response, 'access_token'),
+            ]);
+        }
+
+        if ($shop->isDirty()) {
+            $shop->save();
+
+            ShopInstalled::dispatch($shop);
+        }
 
         return Redirect::route('app', [
             'shop' => $request->input('shop'),
