@@ -5,8 +5,8 @@ namespace Grafikr\ShopifyApp\Http\Controllers;
 use Grafikr\ShopifyApp\Http\Requests\OAuthCallbackRequest;
 use Grafikr\ShopifyApp\Models\Shop;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -61,7 +61,7 @@ class OAuthController extends BaseController
                 ],
             ])->getBody();
             $response = json_decode($response, true);
-        } catch (ClientException $e) {
+        } catch (GuzzleException $e) {
             return Redirect::route('initialize', [
                 'shop' => $request->input('shop'),
             ]);
