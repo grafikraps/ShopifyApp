@@ -1,0 +1,24 @@
+{
+    "name": "grafikr/shopify-app",
+    "description": "Shopify App boilerplate integrated into Laravel",
+    "keywords": ["shopify", "laravel"],
+    "license": "GNU GPLv3",
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.0.0",
+        "laravel/framework": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Grafikr\\ShopifyApp\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Grafikr\\ShopifyApp\\ServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "scripts": {
+        "dev": "NODE_ENV=development webpack --mode development --progress",
+        "watch": "NODE_ENV=development webpack --mode development --watch --progress",
+        "prod": "NODE_ENV=production webpack --mode production",
+        "production": "yarn prod",
+        "lint": "node_modules/.bin/eslint resources"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "babel-loader": "^8.0.0",
+        "eslint": "^7.0.0",
+        "eslint-config-airbnb": "^18.0.0",
+        "eslint-plugin-import": "^2.0.0",
+        "eslint-plugin-jsx-a11y": "^6.0.0",
+        "eslint-plugin-react": "^7.0.0",
+        "eslint-plugin-react-hooks": "^4.0.0",
+        "webpack": "^5.0.0",
+        "webpack-cli": "^4.0.0"
+    },
+    "dependencies": {
+        "@babel/runtime": "^7.0.0",
+        "@shopify/app-bridge": "^1.0.0",
+        "@shopify/app-bridge-utils": "^1.0.0",
+        "css-loader": "^5.0.0",
+        "style-loader": "^2.0.0"
+    }
+}
