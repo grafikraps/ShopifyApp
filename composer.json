@@ -2,7 +2,7 @@
     "name": "grafikr/shopify-app",
     "description": "Shopify App boilerplate integrated into Laravel",
     "keywords": ["shopify", "laravel"],
-    "license": "GNU GPLv3",
+    "license": "AGPL-3.0-or-later",
     "require": {
         "php": "^8.0",
         "ext-json": "*",
